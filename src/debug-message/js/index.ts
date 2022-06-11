@@ -80,7 +80,7 @@ export class JSDebugMessage extends DebugMessage {
           ? `${funcThatEncloseTheVar} ${delemiterInsideMessage} `
           : ""
         : ""
-    }${quote}, { ${selectedVar} })${semicolon}`;
+    }${quote}${formatSelectedVar(selectedVar)})${semicolon}`;
     if (wrapLogMessage) {
       // 16 represents the length of console.log("");
       const wrappingMsg: string = `console.${logType}(${quote}${logMessagePrefix} ${"-".repeat(
@@ -578,3 +578,16 @@ export class JSDebugMessage extends DebugMessage {
     return logMessages;
   }
 }
+
+const formatSelectedVar = (selectedVar: string) => {
+  if (doNotLog.has(selectedVar)) return ''
+  return `, { ${selectedVar} }`
+}
+
+const doNotLog = new Set([
+  '',
+  'const',
+  'var',
+  'let',
+  'function',
+])

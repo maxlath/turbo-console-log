@@ -36,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
         const selectedVar: string = document.getText(selection) || wordUnderCursor;
         const lineOfSelectedVar: number = selection.active.line;
         // Check if the selection line is not the last one in the document and the selected variable is not empty
-        if (selectedVar.trim().length !== 0) {
+        if (selectedVar.trim().length !== 0 || true) {
           const {
             wrapLogMessage,
             logMessagePrefix,
