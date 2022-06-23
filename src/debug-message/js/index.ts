@@ -64,11 +64,11 @@ export class JSDebugMessage extends DebugMessage {
         : ""
     }${
       includeFileNameAndLineNum
-        ? `file: ${fileName} ${delemiterInsideMessage} line ${
+        ? `file: ${fileName} ${delemiterInsideMessage} line${quote}, ${
             lineOfLogMsg + 1
-          } ${delemiterInsideMessage} `
+          }`
         : ""
-    }${
+    }, ${quote}${
       insertEnclosingClass
         ? classThatEncloseTheVar.length > 0
           ? `${classThatEncloseTheVar} ${delemiterInsideMessage} `
@@ -80,7 +80,7 @@ export class JSDebugMessage extends DebugMessage {
           ? `${funcThatEncloseTheVar} ${delemiterInsideMessage} `
           : ""
         : ""
-    }${quote}${formatSelectedVar(selectedVar)})${semicolon}`;
+    }${quote}${formatSelectedVar(selectedVar)})${semicolon}`.replace(`, ''`, '');
     if (wrapLogMessage) {
       // 16 represents the length of console.log("");
       const wrappingMsg: string = `console.${logType}(${quote}${logMessagePrefix} ${"-".repeat(
@@ -116,7 +116,7 @@ export class JSDebugMessage extends DebugMessage {
         }${spacesBeforeMsg}${debuggingMsg}\n${spacesBeforeMsg}}\n`
       );
       return;
-    } 
+    }
     textEditor.insert(
       new vscode.Position(
         lineOfLogMsg >= document.lineCount
