@@ -581,8 +581,7 @@ export class JSDebugMessage extends DebugMessage {
 
 const formatSelectedVar = (selectedVar: string) => {
   if (doNotLog.has(selectedVar)) return ''
-  if (selectedVar.includes(',')) return `, { ${selectedVar} }`
-  else return `, ${selectedVar}`
+  return `, { ${selectedVar} }`
 }
 
 const doNotLog = new Set([
