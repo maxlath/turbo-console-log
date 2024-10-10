@@ -580,8 +580,12 @@ export class JSDebugMessage extends DebugMessage {
 }
 
 const formatSelectedVar = (selectedVar: string) => {
+  selectedVar = selectedVar
+    // Drop types
+    .replace(/: [A-Z]\w*/g, '')
   if (doNotLog.has(selectedVar)) return ''
-  return `, { ${selectedVar} }`
+  if (selectedVar.includes('.')) return `, ${selectedVar}`
+  else return `, { ${selectedVar} }`
 }
 
 const doNotLog = new Set([
